@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta content="text/html;charset=UTF-8" http-equiv="Content-Type"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>video analyzer</title>
+
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+  <script src="node_modules/plotly.js/dist/plotly.min.js"></script>
+
+  <link href="dist/video-analyzer.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <div style="border: solid 1px #ccc; padding: 10px; text-align: center;">
+    <video id="video" controls="true">
+      <!--<source src="cspan.mp4">--><!-- WebKit -->
+      Your browser does not support HTML5 video tag. Please download FireFox 3.5 or higher.
+    </video><br/>
+
+    <button class="btn btn-lg btn-primary" id="capture">Capture</button>
+
+  </div>
+
+  <div id="plot"></div>
+
+  <script>
+    (function() {
+
+
+    })();
+  </script>
+  <script src="src/video-analyzer.js"></script>
+
+</body>
+</html>
