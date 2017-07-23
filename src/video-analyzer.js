@@ -76,7 +76,7 @@ function generateThumbnail() {
   ctx.drawImage(video, 0, 0, width, height);
   var pixel = ctx.getImageData(x, y, 1, 1);
   var newx = video.currentTime; // or i for frame #?
-  var newy = pixel.data[0];
+  var newy = pixel.data[0] + pixel.data[1] + pixel.data[2];
   if (newy > 0) Plotly.extendTraces('plot', { x: [[newx]], y: [[newy]] }, [0])
 }
 
