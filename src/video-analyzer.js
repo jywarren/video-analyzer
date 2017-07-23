@@ -26,7 +26,7 @@ video = document.getElementById("video");
 video.onmousedown = function(e) {
   x = parseInt(e.clientX - $('#video').position().left);
   y = parseInt(e.clientY - $('#video').position().top);
-  console.log(x, y);
+  console.log(x, y, $('#video').position().left, $('#video').position().top);
 }
 
 video.addEventListener('loadeddata', function() {
@@ -60,7 +60,7 @@ video.addEventListener('timeupdate', function() {
 
 }, false);
 
-video.preload = "auto";
+//video.preload = "auto";
 //video.src = "https://media.w3.org/2010/05/sintel/trailer.mp4";
 //video.src = "mine.mp4";
 
@@ -77,7 +77,7 @@ function generateThumbnail() {
   var pixel = ctx.getImageData(x, y, 1, 1);
   var newx = video.currentTime; // or i for frame #?
   var newy = pixel.data[0];
-  Plotly.extendTraces('plot', { x: [[newx]], y: [[newy]] }, [0])
+  if (newy > 0) Plotly.extendTraces('plot', { x: [[newx]], y: [[newy]] }, [0])
 }
 
 })();
