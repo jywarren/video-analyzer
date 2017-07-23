@@ -62,7 +62,7 @@ video.addEventListener('timeupdate', function() {
 
 video.preload = "auto";
 //video.src = "https://media.w3.org/2010/05/sintel/trailer.mp4";
-video.src = "mine.mp4";
+//video.src = "mine.mp4";
 
 function generateThumbnail() {
   c = document.createElement("canvas");
