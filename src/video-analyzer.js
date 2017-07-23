@@ -21,7 +21,9 @@ var width = $('#video').width()
 var height = $('#video').height();
 var i = 0;
 var video = document.getElementById("video");
-//var thumbs = document.getElementById("thumbs");
+
+// adjust page size to video
+$('body').width($('#video').width());
 
 video.onmousedown = function(e) {
   x = parseInt(e.clientX - $('#video').position().left);
