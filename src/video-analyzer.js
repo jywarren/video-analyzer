@@ -7,6 +7,7 @@ https://github.com/damianociarla/node-ffmpeg
 */
 
 var c, ctx, video, height = 0, width = 0;
+var x = 50, y = 50;
 
 (function() {
 
@@ -18,7 +19,6 @@ var trace1 = {
 };
 
 // based on https://jsfiddle.net/epistemex/gdp00x2s/
-var x = 50, y = 50;
 var i = 0;
 video = document.getElementById("video");
 //var thumbs = document.getElementById("thumbs");
@@ -32,7 +32,9 @@ video.onmousedown = function(e) {
 video.addEventListener('loadeddata', function() {
   width = $('#video').width()
   height = $('#video').height();
-  console.log(height, width)
+  console.log(height, width);
+  x = parseInt(width/2);
+  y = parseInt(height/2);
   video.currentTime = i;
   Plotly.newPlot('plot', [trace1]);
 }, false);
