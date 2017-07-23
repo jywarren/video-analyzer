@@ -23,9 +23,10 @@ var i = 0;
 var video = document.getElementById("video");
 //var thumbs = document.getElementById("thumbs");
 
-video.onmousemove = function(e) {
+video.onmousedown = function(e) {
   x = parseInt(e.clientX - $('#video').position().left);
   y = parseInt(e.clientY - $('#video').position().top);
+  console.log(x, y);
 }
 
 video.addEventListener('loadeddata', function() {
@@ -59,6 +60,8 @@ function generateThumbnail() {
   var ctx = c.getContext("2d");
   c.width = width;
   c.height = height;
+  ctx.canvas.width = width;
+  ctx.canvas.height = height;
   ctx.drawImage(video, 0, 0, width, height);
   var pixel = ctx.getImageData(x, y, 1, 1);
   trace1.x.push(i);

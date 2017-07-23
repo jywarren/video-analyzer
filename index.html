@@ -20,17 +20,44 @@
       Your browser does not support HTML5 video tag. Please download FireFox 3.5 or higher.
     </video><br/>
 
-    <button class="btn btn-lg btn-primary" id="capture">Capture</button>
-
   </div>
+
+  <input type="file" id="files" name="files[]" />
 
   <div id="plot"></div>
 
+  
+  <!--<input type="file" id="files" name="files[]" multiple />-->
+
   <script>
-    (function() {
+  // https://www.html5rocks.com/en/tutorials/file/dndfiles/
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
 
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
 
-    })();
+      // Only process image files.
+//      if (!f.type.match('video.*')) {
+//        continue;
+//      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          document.getElementById('video').src = e.target.result;
+        }
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
   </script>
   <script src="src/video-analyzer.js"></script>
 
