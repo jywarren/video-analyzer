@@ -6,6 +6,8 @@ https://github.com/damianociarla/node-ffmpeg
 
 */
 
+var c, ctx, video, height = 0, width = 0;
+
 (function() {
 
 //var Plotly = require("plotly");
@@ -17,13 +19,9 @@ var trace1 = {
 
 // based on https://jsfiddle.net/epistemex/gdp00x2s/
 var x = 50, y = 50;
-var width = $('#video').width()
-var height = $('#video').height();
 var i = 0;
-var video = document.getElementById("video");
-
-// adjust page size to video
-$('body').width($('#video').width());
+video = document.getElementById("video");
+//var thumbs = document.getElementById("thumbs");
 
 video.onmousedown = function(e) {
   x = parseInt(e.clientX - $('#video').position().left);
@@ -32,13 +30,20 @@ video.onmousedown = function(e) {
 }
 
 video.addEventListener('loadeddata', function() {
+  width = $('#video').width()
+  height = $('#video').height();
+  console.log(height, width)
   video.currentTime = i;
+  Plotly.newPlot('plot', [trace1]);
 }, false);
 
-video.addEventListener('seeked', function() {
+// https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
+// video.addEventListener('seeked', function() {
+video.addEventListener('timeupdate', function() {
+
   // now video has seeked and current frames will show
   // at the time as we expect
-  generateThumbnail(i);
+  if (video.currentTime != 0) generateThumbnail(i);
 
   // when frame is captured, increase
   i++;
@@ -58,18 +63,19 @@ video.preload = "auto";
 video.src = "mine.mp4";
 
 function generateThumbnail() {
-  var c = document.createElement("canvas");
-  var ctx = c.getContext("2d");
+  c = document.createElement("canvas");
   c.width = width;
   c.height = height;
+  c.style.width = width;
+  c.style.height = height;
+  ctx = c.getContext("2d");
   ctx.canvas.width = width;
   ctx.canvas.height = height;
   ctx.drawImage(video, 0, 0, width, height);
   var pixel = ctx.getImageData(x, y, 1, 1);
-  trace1.x.push(i);
-  trace1.y.push(pixel.data[0]);
-  var data = [trace1];
-  Plotly.newPlot('plot', data);
+  var newx = video.currentTime; // or i for frame #?
+  var newy = pixel.data[0];
+  Plotly.extendTraces('plot', { x: [[newx]], y: [[newy]] }, [0])
 }
 
 })();
